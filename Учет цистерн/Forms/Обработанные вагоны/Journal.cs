@@ -79,6 +79,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                     textEdit9.Text = "0";
                     textEdit10.Text = "0";
                     textEdit11.Text = "0";
+                    textEdit25.Text = "0";
                     //textEdit12.Text = "0";
                     //textEdit13.Text = "0";
                     //textEdit14.Text = "0";
@@ -120,6 +121,10 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 gridView1.Columns[1].Visible = false;
                 gridView1.Columns[2].Visible = false;
 
+                gridView1.Columns[16].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                gridView1.Columns[16].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                gridView1.Columns[17].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                gridView1.Columns[17].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                 gridView1.Columns[18].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
                 gridView1.Columns[18].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                 gridView1.Columns[19].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -130,10 +135,6 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 gridView1.Columns[21].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                 gridView1.Columns[22].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
                 gridView1.Columns[22].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                gridView1.Columns[23].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                gridView1.Columns[23].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                gridView1.Columns[24].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                gridView1.Columns[24].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
 
                 if (Section == "2")
                 {
@@ -488,8 +489,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                         {
                             if (textEdit1.Text.Length > 7 && dt.Rows[0][0].ToString() == "PTC Operator TOO")
                             {
-                                if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                                if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit11.Text != "" && textEdit25.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit11.Text != "0" || textEdit25.Text != ""))
                                 {
                                     string StartProcess, EndProcess, DateTehCart, StartTor, EndTor, ArrivalDate, DateVU19 = string.Empty;
 
@@ -512,10 +513,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                         "" + textEdit6.Text.Trim() + "," +
                                         "" + textEdit8.Text.Trim() + "," +
                                         "" + textEdit7.Text.Trim() + "," +
-                                        "" + textEdit9.Text.Trim() + "," +
-                                        "" + textEdit10.Text.Trim() + "," +
+                                        "" + textEdit25.Text.Trim() + "," +
                                         "" + textEdit11.Text.Trim() + "," +
-                                        "" + textEdit5.Text.Trim() + "," +
                                         "" + comboBox1.SelectedValue.ToString() + "," +
                                         "'" + textEdit3.Text.Trim() + "'," +
                                         "" + comboBox2.SelectedValue.ToString() + "," +
@@ -551,8 +550,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                             }
                             else
                             {
-                                if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                                if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit11.Text != "" && textEdit25.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit11.Text != "0" || textEdit25.Text != ""))
                                 {
                                     string StartProcess, EndProcess, DateTehCart, StartTor, EndTor, ArrivalDate, DateVU19 = string.Empty;
 
@@ -575,10 +574,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                         "" + textEdit6.Text.Trim() + "," +
                                         "" + textEdit8.Text.Trim() + "," +
                                         "" + textEdit7.Text.Trim() + "," +
-                                        "" + textEdit9.Text.Trim() + "," +
-                                        "" + textEdit10.Text.Trim() + "," +
+                                        "" + textEdit25.Text.Trim() + "," +
                                         "" + textEdit11.Text.Trim() + "," +
-                                        "" + textEdit5.Text.Trim() + "," +
                                         "" + comboBox1.SelectedValue.ToString() + "," +
                                         "'" + textEdit3.Text.Trim() + "'," +
                                         "" + comboBox2.SelectedValue.ToString() + "," +
@@ -618,10 +615,10 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 {
                     if (textEdit1.Text.Length > 7 && textEdit2.Text == "PTC Operator TOO")
                     {
-                        if ((textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                        if ((textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit25.Text != "" && textEdit11.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit25.Text != "0" || textEdit11.Text != "0"))
                         {
-                            string Oper,Brigade,Product,HOL,TOR,GOR,DR1,DR2,Trafar,Naruzh,
+                            string Oper,Brigade,Product,HOL,TOR,GOR,DR,Trafar,
                                    StartProcess,EndProcess,DateTehCart,StartTor,EndTor,ArrivalDate,DateVU19 = string.Empty;
                         
                             if (checkEdit1.Checked){Oper = textEdit4.Text.Trim();}
@@ -642,17 +639,11 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                             if (checkEdit5.Checked) { GOR = textEdit8.Text.Trim(); }
                             else { GOR = ""; }
 
-                            if (checkEdit7.Checked) { DR1 = textEdit9.Text.Trim(); }
-                            else { DR1 = ""; }
-
-                            if (checkEdit8.Checked) { DR2 = textEdit10.Text.Trim(); }
-                            else { DR2 = ""; }
+                            if (checkEdit32.Checked) { DR = textEdit9.Text.Trim(); }
+                            else { DR = ""; }
 
                             if (checkEdit9.Checked) { Trafar = textEdit11.Text.Trim(); }
                             else { Trafar = ""; }
-
-                            if (checkEdit10.Checked) { Naruzh = textEdit5.Text.Trim(); }
-                            else { Naruzh = ""; }
 
                             if (checkEdit25.Checked) { StartProcess = dateTimePicker9.Value.ToString(); } else { StartProcess = ""; }
                             if (checkEdit26.Checked) { EndProcess = dateTimePicker8.Value.ToString(); } else { EndProcess = ""; }
@@ -687,10 +678,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                     "'" + HOL + "'," +
                                     "'" + GOR + "'," +
                                     "'" + TOR + "'," +
-                                    "'" + DR1 + "'," +
-                                    "'" + DR2 + "'," +
+                                    "'" + DR + "'," +
                                     "'" + Trafar + "'," +
-                                    "'" + Naruzh + "'," +
                                     "'" + Brigade + "'," +
                                     "'" + Product + "', " +
                                     "'" + StartProcess + "'," +
@@ -712,10 +701,10 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                     }
                     else
                     {
-                        if ((textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                        if ((textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit25.Text != "" && textEdit11.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit25.Text != "0" || textEdit11.Text != "0"))
                         {
-                            string Oper, Brigade, Product, HOL, TOR, GOR, DR1, DR2, Trafar, Naruzh,
+                            string Oper, Brigade, Product, HOL, TOR, GOR, DR, Trafar,
                                 StartProcess, EndProcess, DateTehCart, StartTor, EndTor, ArrivalDate, DateVU19 = string.Empty;
 
                             if (checkEdit1.Checked) { Oper = textEdit4.Text.Trim(); }
@@ -727,28 +716,23 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                             if (checkEdit11.Checked) { Product = comboBox2.SelectedValue.ToString(); }
                             else { Product = ""; }
 
-                            if(checkEdit4.Checked | checkEdit6.Checked | checkEdit5.Checked | checkEdit7.Checked | checkEdit8.Checked)
+                            if(checkEdit4.Checked | checkEdit6.Checked | checkEdit5.Checked | checkEdit32.Checked)
                             {
                                 HOL = textEdit6.Text.Trim();
                                 TOR = textEdit7.Text.Trim();
                                 GOR = textEdit8.Text.Trim();
-                                DR1 = textEdit9.Text.Trim();
-                                DR2 = textEdit10.Text.Trim();
+                                DR = textEdit25.Text.Trim();
                             }
                             else
                             {
                                 HOL = "";
                                 TOR = "";
                                 GOR = "";
-                                DR1 = "";
-                                DR2 = "";
+                                DR = "";
                             }
 
                             if (checkEdit9.Checked) { Trafar = textEdit11.Text.Trim(); }
                             else { Trafar = ""; }
-
-                            if (checkEdit10.Checked) { Naruzh = textEdit5.Text.Trim(); }
-                            else { Naruzh = ""; }
 
                             if (checkEdit25.Checked) { StartProcess = dateTimePicker9.Value.ToString(); } else { StartProcess = ""; }
                             if (checkEdit26.Checked) { EndProcess = dateTimePicker8.Value.ToString(); } else { EndProcess = ""; }
@@ -783,10 +767,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                     "'" + HOL + "'," +
                                     "'" + GOR + "'," +
                                     "'" + TOR + "'," +
-                                    "'" + DR1 + "'," +
-                                    "'" + DR2 + "'," +
+                                    "'" + DR + "'," +
                                     "'" + Trafar + "'," +
-                                    "'" + Naruzh + "'," +
                                     "'" + Brigade + "'," +
                                     "'" + Product + "', " +
                                     "'" + StartProcess + "'," +
@@ -860,8 +842,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                     {
                         if (textEdit1.Text.Length > 7 && dt.Rows[0][0].ToString() == "PTC Operator TOO")
                         {
-                            if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                            if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit11.Text != "" && textEdit25.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit11.Text != "0" || textEdit25.Text != ""))
                             {
 
                                 string StartProcess, EndProcess, DateTehCart, StartTor, EndTor, ArrivalDate, DateVU19 = string.Empty;
@@ -881,10 +863,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                     "" + textEdit6.Text.Trim() + "," +
                                     "" + textEdit8.Text.Trim() + "," +
                                     "" + textEdit7.Text.Trim() + "," +
-                                    "" + textEdit9.Text.Trim() + "," +
-                                    "" + textEdit10.Text.Trim() + "," +
+                                    "" + textEdit25.Text.Trim() + "," +
                                     "" + textEdit11.Text.Trim() + "," +
-                                    "" + textEdit5.Text.Trim() + "," +
                                     "" + comboBox1.SelectedValue.ToString() + "," +
                                     "'" + textEdit3.Text.Trim() + "'," +
                                     "" + comboBox2.SelectedValue.ToString() + "," +
@@ -913,8 +893,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                         }
                         else
                         {
-                            if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit5.Text != "" && textEdit9.Text != "" && textEdit10.Text != "" && textEdit11.Text != "") &
-                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit5.Text != "0" || textEdit9.Text != "0" || textEdit10.Text != "0" || textEdit11.Text != "0"))
+                            if ((textEdit3.Text != "" && textEdit4.Text != "" && textEdit6.Text != "" && textEdit7.Text != "" && textEdit8.Text != "" && textEdit11.Text != "" && textEdit25.Text != "") &
+                                    (textEdit6.Text != "0" || textEdit7.Text != "0" || textEdit8.Text != "0" || textEdit11.Text != "0" || textEdit25.Text != ""))
                             {
                                 string StartProcess, EndProcess, DateTehCart, StartTor, EndTor, ArrivalDate, DateVU19 = string.Empty;
 
@@ -933,10 +913,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                                     "" + textEdit6.Text.Trim() + "," +
                                     "" + textEdit8.Text.Trim() + "," +
                                     "" + textEdit7.Text.Trim() + "," +
-                                    "" + textEdit9.Text.Trim() + "," +
-                                    "" + textEdit10.Text.Trim() + "," +
+                                    "" + textEdit25.Text.Trim() + "," +
                                     "" + textEdit11.Text.Trim() + "," +
-                                    "" + textEdit5.Text.Trim() + "," +
                                     "" + comboBox1.SelectedValue.ToString() + "," +
                                     "'" + textEdit3.Text.Trim() + "'," +
                                     "" + comboBox2.SelectedValue.ToString() + "," +
@@ -1175,6 +1153,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             textEdit10.Enabled = false;
             textEdit11.Enabled = false;
             textEdit5.Enabled = false;
+            textEdit25.Enabled = false;
             comboBox1.Enabled = false;
             comboBox2.Enabled = false;
             simpleButton1.Enabled = false;
@@ -1221,6 +1200,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             textEdit10.Enabled = true;
             textEdit11.Enabled = true;
             textEdit5.Enabled = true;
+            textEdit25.Enabled = true;
             comboBox1.Enabled = true;
             comboBox2.Enabled = true;
             simpleButton1.Enabled = true;
@@ -1356,13 +1336,13 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 textEdit10.Text = "1";
                 textEdit8.Text = "1";
                 textEdit6.Text = "0";
-                textEdit9.Text = "0";
+                textEdit25.Text = "0";
             }
             else if(textEdit10.Text == "0")
             {
                 textEdit7.Text = "0";
                 textEdit8.Text = "0";
-                textEdit9.Text = "0";
+                textEdit25.Text = "0";
             }
         }
 
@@ -1373,14 +1353,21 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 textEdit6.Text = "0";
                 textEdit8.Text = "1";
                 textEdit7.Text = "1";
-                textEdit9.Text = "0";
-                textEdit10.Text = "0";
+                textEdit25.Text = "0";
             }
             else if(textEdit7.Text == "0")
             {
                 //textEdit8.Text = "0";
-                textEdit9.Text = "0";
-                textEdit10.Text = "0";
+                textEdit25.Text = "0";
+            }
+        }
+        private void textEdit25_EditValueChanged(object sender, EventArgs e)
+        {
+            if (textEdit25.Text == "1")
+            {
+                textEdit6.Text = "0";
+                textEdit8.Text = "1";
+                textEdit7.Text = "0";
             }
         }
 
@@ -1390,8 +1377,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             {
                 textEdit7.Text = "0";
                 textEdit8.Text = "0";
-                textEdit9.Text = "0";
-                textEdit10.Text = "0";
+                textEdit25.Text = "0";
             }
         }
 
@@ -1404,8 +1390,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             else if(textEdit8.Text == "0")
             {
                 textEdit7.Text = "0";
-                textEdit9.Text = "0";
-                textEdit10.Text = "0";
+                textEdit25.Text = "0";
             }
         }
 
@@ -1580,10 +1565,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             checkEdit4.Visible = true;
             checkEdit5.Visible = true;
             checkEdit6.Visible = true;
-            checkEdit7.Visible = true;
-            checkEdit8.Visible = true;
             checkEdit9.Visible = true;
-            checkEdit10.Visible = true;
+            checkEdit32.Visible = true;
 
             checkEdit25.Visible = true;
             checkEdit26.Visible = true;
@@ -1622,10 +1605,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             checkEdit4.Visible = false;
             checkEdit5.Visible = false;
             checkEdit6.Visible = false;
-            checkEdit7.Visible = false;
-            checkEdit8.Visible = false;
             checkEdit9.Visible = false;
-            checkEdit10.Visible = false;
+            checkEdit32.Visible = false;
 
             checkEdit1.Checked = false;
             checkEdit2.Checked = false;
@@ -1645,6 +1626,7 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
             checkEdit29.Checked = false;
             checkEdit30.Checked = false;
             checkEdit31.Checked = false;
+            checkEdit32.Checked = false;
 
             checkEdit25.Visible = false;
             checkEdit26.Visible = false;
@@ -1658,6 +1640,10 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
         private void checkEdit1_Properties_CheckStateChanged(object sender, EventArgs e)
         {
             textEdit4.Enabled = (checkEdit1.CheckState == CheckState.Checked);
+        }
+        private void checkEdit32_Properties_CheckStateChanged(object sender, EventArgs e)
+        {
+            textEdit25.Enabled = (checkEdit32.CheckState == CheckState.Checked);
         }
 
         private void checkEdit2_Properties_CheckStateChanged(object sender, EventArgs e)
@@ -1965,11 +1951,22 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
         {
             if (e.KeyCode == Keys.Down)
             {
-                textEdit9.Focus();
+                textEdit25.Focus();
             }
             else if (e.KeyCode == Keys.Up)
             {
                 textEdit7.Focus();
+            }
+        }
+        private void textEdit25_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                textEdit11.Focus();
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                textEdit8.Focus();
             }
         }
 
@@ -2341,6 +2338,8 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
         {
             dateTimePicker4.Enabled = (checkEdit31.CheckState == CheckState.Checked);
         }
+
+        
 
         private void Enter_Key_Down(object sender, KeyEventArgs e)
         {
