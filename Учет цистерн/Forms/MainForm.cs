@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Учет_цистерн.Forms.заявки_на_обработку;
-using Учет_цистерн.Forms.Отчеты;
 using Учет_цистерн.Forms.СНО;
 using Учет_цистерн.Forms.Справка;
 using Учет_цистерн.Forms.Услуги.СНО_Приход;
@@ -701,28 +700,6 @@ namespace Учет_цистерн
             }
         }
 
-        private void сНОToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (Form form in Application.OpenForms)
-                {
-                    if (form.GetType() == typeof(SnoReportForm))
-                    {
-                        form.Activate();
-                        return;
-                    }
-                }
-                SnoReportForm snoReporForm = new SnoReportForm();
-                snoReporForm.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                logger.Error(ex, "сНОToolStripMenuItem1_Click");
-            }
-        }
-
         private void проверитьОбновлениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -795,28 +772,6 @@ namespace Учет_цистерн
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 logger.Error(ex, "btn_Refrence_Click_MainForm");
-            }
-        }
-
-        private void аУТНToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (Form form in Application.OpenForms)
-                {
-                    if (form.GetType() == typeof(AUTNReportForm))
-                    {
-                        form.Activate();
-                        return;
-                    }
-                }
-                AUTNReportForm aUTNReportForm = new AUTNReportForm();
-                aUTNReportForm.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                logger.Error(ex, " аУТНToolStripMenuItem_Click_MainForm");
             }
         }
 
