@@ -95,7 +95,7 @@ namespace Учет_цистерн.Forms.Отчеты
 
                         sl.SetCellValue("F10", dt.Rows[k][1].ToString());
 
-                        sl.SetCellValue("F12", "в ТОО \"  Batys Petroleum  \"" + v1 + " по " + v2);
+                        sl.SetCellValue("F12", "в ТОО \"Batys Petroleum\"" + v1 + " по " + v2);
 
                         var val = dataTable.Rows.Count + 18;
                         sl.CopyCell("B18", "G24", "B" + val, true);
@@ -140,7 +140,7 @@ namespace Учет_цистерн.Forms.Отчеты
                 style1.SetLeftBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
                 style1.SetRightBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
                 style1.Font.FontName = "Arial";
-                style1.Font.FontSize = 12;
+                style1.Font.FontSize = 9;
                 style1.Font.Bold = true;
                 style1.Alignment.Horizontal = HorizontalAlignmentValues.Center;
 
