@@ -20,7 +20,7 @@ namespace Учет_цистерн.Forms.Отчеты
             {
                 sl.SelectWorksheet("СНО Приход");
 
-                sl.SetCellValue("B1", "Приход СНО в ТОО Казыгурт-Юг за период с " + date_1 + " по " + date_2);
+                sl.SetCellValue("B1", "Приход СНО в ТОО \"Batys Petroleum\" за период с " + date_1 + " по " + date_2);
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -78,7 +78,7 @@ namespace Учет_цистерн.Forms.Отчеты
             {
                 sl.SelectWorksheet("СНО Реализация");
 
-                sl.SetCellValue("B3", "в ТОО Казыгурт-Юг реализация СНО за период с " + date_1 + " по " + date_2);
+                sl.SetCellValue("B3", "в ТОО \"Batys Petroleum\" реализация СНО за период с " + date_1 + " по " + date_2);
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
