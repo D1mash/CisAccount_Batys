@@ -502,7 +502,7 @@
             // 
             // dateTimePicker6
             // 
-            this.dateTimePicker6.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            this.dateTimePicker6.CustomFormat = "HH:mm:ss";
             this.dateTimePicker6.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker6.Location = new System.Drawing.Point(160, 77);
             this.dateTimePicker6.Name = "dateTimePicker6";
@@ -519,7 +519,7 @@
             // 
             // dateTimePicker8
             // 
-            this.dateTimePicker8.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            this.dateTimePicker8.CustomFormat = "HH:mm:ss";
             this.dateTimePicker8.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker8.Location = new System.Drawing.Point(160, 50);
             this.dateTimePicker8.Name = "dateTimePicker8";
@@ -536,7 +536,7 @@
             // 
             // dateTimePicker9
             // 
-            this.dateTimePicker9.CustomFormat = "dd.MM.yyyy HH:mm:ss";
+            this.dateTimePicker9.CustomFormat = "HH:mm:ss";
             this.dateTimePicker9.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker9.Location = new System.Drawing.Point(160, 23);
             this.dateTimePicker9.Name = "dateTimePicker9";

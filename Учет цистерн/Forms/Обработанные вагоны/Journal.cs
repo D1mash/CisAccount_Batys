@@ -121,12 +121,12 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 gridView1.Columns[1].Visible = false;
                 gridView1.Columns[2].Visible = false;
 
-                gridView1.Columns[16].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                gridView1.Columns[16].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                gridView1.Columns[17].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                gridView1.Columns[17].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                gridView1.Columns[18].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                gridView1.Columns[18].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                //gridView1.Columns[16].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                //gridView1.Columns[16].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                //gridView1.Columns[17].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                //gridView1.Columns[17].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                //gridView1.Columns[18].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                //gridView1.Columns[18].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                 gridView1.Columns[19].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
                 gridView1.Columns[19].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                 gridView1.Columns[20].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -183,12 +183,12 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                     gridView1.Columns[1].Visible = false;
                     gridView1.Columns[2].Visible = false;
 
-                    gridView1.Columns[19].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                    gridView1.Columns[19].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                    gridView1.Columns[20].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                    gridView1.Columns[20].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
-                    gridView1.Columns[21].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-                    gridView1.Columns[21].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                    //gridView1.Columns[19].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                    //gridView1.Columns[19].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                    //gridView1.Columns[20].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                    //gridView1.Columns[20].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
+                    //gridView1.Columns[21].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+                    //gridView1.Columns[21].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                     gridView1.Columns[22].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
                     gridView1.Columns[22].DisplayFormat.FormatString = "dd.MM.yyyy HH:mm";
                     gridView1.Columns[23].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -1107,9 +1107,9 @@ namespace Учет_цистерн.Forms.Обработанные_вагоны
                 textEdit11.Text = Trafar1.ToString();
                 textEdit5.Text = Naruzhka1.ToString();
 
-                if (dt.Rows[0][28] == System.DBNull.Value) { dateTimePicker9.Value = System.DateTime.Now; } else { dateTimePicker9.Value = Convert.ToDateTime(dt.Rows[0][28]); }
-                if (dt.Rows[0][29] == System.DBNull.Value) { dateTimePicker8.Value = System.DateTime.Now; } else { dateTimePicker8.Value = Convert.ToDateTime(dt.Rows[0][29]); }
-                if (dt.Rows[0][30] == System.DBNull.Value) { dateTimePicker6.Value = System.DateTime.Now; } else { dateTimePicker6.Value = Convert.ToDateTime(dt.Rows[0][30]); }
+                if (dt.Rows[0][28] == System.DBNull.Value) { dateTimePicker9.Value = System.DateTime.Now; } else { dateTimePicker9.Value = DateTime.ParseExact(dt.Rows[0][28].ToString(), "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); }
+                if (dt.Rows[0][29] == System.DBNull.Value) { dateTimePicker8.Value = System.DateTime.Now; } else { dateTimePicker8.Value = DateTime.ParseExact(dt.Rows[0][29].ToString(), "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); }
+                if (dt.Rows[0][30] == System.DBNull.Value) { dateTimePicker6.Value = System.DateTime.Now; } else { dateTimePicker6.Value = DateTime.ParseExact(dt.Rows[0][30].ToString(), "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture); }
                 if (dt.Rows[0][31] == System.DBNull.Value) { dateTimePicker2.Value = System.DateTime.Now; } else { dateTimePicker2.Value = Convert.ToDateTime(dt.Rows[0][31]); }
                 if (dt.Rows[0][32] == System.DBNull.Value) { dateTimePicker3.Value = System.DateTime.Now; } else { dateTimePicker3.Value = Convert.ToDateTime(dt.Rows[0][32]); }
                 if (dt.Rows[0][33] == System.DBNull.Value) { dateTimePicker5.Value = System.DateTime.Now; } else { dateTimePicker5.Value = Convert.ToDateTime(dt.Rows[0][33]); }
