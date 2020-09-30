@@ -3,14 +3,9 @@ using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -259,6 +254,8 @@ namespace Учет_цистерн.Forms.Смена_собственника
                             string Search_2 = "exec dbo.Rent_Search_By_Parametrs_1 " + "@Car_Num = '" + SelectItemRow2.ToString() + "', " + "@Date_Start = '" + Date_S + "', " + " @Date_End = '" + Date_E + "', " + "@Date_Rec = '" + Date_R + "', " + "@OwnerId = '" + comboBox1.SelectedValue + "'," + "@Product = '" + textEdit3.Text + "'," + "@Rent_Num = '" + textEdit2.Text + "'," + "@Type = " + 2;
                             gridControl1.DataSource = DbConnection.DBConnect(Search_2);
                             gridView1.Columns[0].Visible = false;
+                            gridView1.Columns[6].Visible = false;
+                            gridView1.Columns[7].Visible = false;
 
                             GridColumnSummaryItem item3 = new GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Номер В/Ц", "Кол.во={0}");
                             gridView3.Columns["Номер В/Ц"].Summary.Add(item3);
@@ -372,13 +369,20 @@ namespace Учет_цистерн.Forms.Смена_собственника
 
         private void gridView1_RowCellClick(object sender, DevExpress.XtraGrid.Views.Grid.RowCellClickEventArgs e)
         {
-            string Id = gridView1.GetFocusedDataRow()[6].ToString();
-            date = gridView1.GetFocusedDataRow()[1].ToString();
-            string OwnerID = gridView1.GetFocusedDataRow()[7].ToString();
-            string HeadID = gridView1.GetFocusedDataRow()[0].ToString();
-            Grid1Id = Convert.ToInt32(Id);
-            Grid3Id = Convert.ToInt32(HeadID);
-            OwnerId_v2 = Convert.ToInt32(OwnerID);
+            try
+            {
+                string Id = gridView1.GetFocusedDataRow()[6].ToString();
+                date = gridView1.GetFocusedDataRow()[1].ToString();
+                string OwnerID = gridView1.GetFocusedDataRow()[7].ToString();
+                string HeadID = gridView1.GetFocusedDataRow()[0].ToString();
+                Grid1Id = Convert.ToInt32(Id);
+                Grid3Id = Convert.ToInt32(HeadID);
+                OwnerId_v2 = Convert.ToInt32(OwnerID);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void releaseObject(object obj)
