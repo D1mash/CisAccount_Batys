@@ -21,11 +21,10 @@ namespace Учет_цистерн.Forms.Отчеты
             {
                 sl.SelectWorksheet("Итоговая  справка");
 
-                sl.SetCellValue("B6", "c " + date_1 + " по " + date_2);
+                sl.SetCellValue("B6", "c " + date_1 + " по " + date_2 + "на ТОО \"Batys Petroleum\"");
 
                 var val = dt.Rows.Count * 2 + 11;
                 sl.CopyCell("B13", "H24", "B" + val, true);
-                //worksheet.Range["B13:H24"].Cut(worksheet.Cells[gridView1.RowCount * 2 + 11, 2]);
 
                 int item = 0;
 
@@ -40,8 +39,6 @@ namespace Учет_цистерн.Forms.Отчеты
                     if (i % 2 == 0)
                     {
                         var k = 11 + item;
-                        //Excel.Range range = worksheet.Range[worksheet.Cells[i + k, 2], worksheet.Cells[i + k, 8]];
-                        //range.Merge();
 
                         sl.MergeWorksheetCells(i + k, 2, i + k, 8);
 
@@ -86,7 +83,7 @@ namespace Учет_цистерн.Forms.Отчеты
 
                     final_sum += int.Parse(dt.Rows[i][1].ToString()) * double.Parse(dt.Rows[i][2].ToString()); ;
 
-                    if (i < dt.Rows.Count && dt.Rows[i][0].ToString() != "Текущий отцепочный ремонт горячей обработкой" && dt.Rows[i][0].ToString() != "Текущий отцепочный ремонт")
+                    if (i < dt.Rows.Count)
                     {
                         total += int.Parse(dt.Rows[i][1].ToString());
                     }
@@ -102,8 +99,8 @@ namespace Учет_цистерн.Forms.Отчеты
                 sl.SetCellValue("I8", total);
 
                 //Итоговая сумма
-                sl.SetCellValue(dt.Rows.Count + 12 + item, 10, final_sum);
-                sl.SetCellStyle(dt.Rows.Count + 12 + item, 10, GR.FormattingExcelCells(sl, false));
+                sl.SetCellValue(dt.Rows.Count + 11 + item, 4, final_sum);
+                sl.SetCellStyle(dt.Rows.Count + 11 + item, 4, GR.FormattingExcelCells(sl, false));
 
                 sl.SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"Report\Итог по станции.xlsx");
             }
@@ -133,29 +130,29 @@ namespace Учет_цистерн.Forms.Отчеты
                 string GetCountServiceCost = "exec dbo.Itog_Report  '" + date_1 + "','" + date_2 + "','" + comapany + "'";
                 Itog_Rep = DbConnection.DBConnect(GetCountServiceCost);
 
-                sl.SetCellValue("C4", company_name);
+                sl.SetCellValue("F10", company_name);
 
-                sl.SetCellValue("C6", "в ТОО Казыгурт-Юг c " + dates_1 + " по " + dates_2);
+                sl.SetCellValue("F12", "в ТОО \"Batys Petroleum\"" + dates_1 + " по " + dates_2);
 
-                var val = dataTable.Rows.Count + 16 + Itog_Rep.Rows.Count * 2;
-                sl.CopyCell("B13", "K20", "B" + val, true);
+                var val = dataTable.Rows.Count + 24 + Itog_Rep.Rows.Count;
+                sl.CopyCell("B18", "G24", "B" + val, true);
 
-                sl.ImportDataTable(10, 1, dataTable, false);
-                sl.CopyCell("E10", "R" + Convert.ToString(dataTable.Rows.Count + 10), "G10", true);
+                sl.ImportDataTable(16, 1, dataTable, false);
+                sl.CopyCell("W16", "W" + Convert.ToString(dataTable.Rows.Count + 16), "X16", true);
 
                 for (int i = 0; i < dataTable.Rows.Count; i++)
                 {
-                    for (int j = 1; j < dataTable.Columns.Count + 3; j++)
+                    for (int j = 1; j <= dataTable.Columns.Count + 1; j++)
                     {
-                        sl.SetCellStyle(i + 10, j, GR.FormattingExcelCells(sl, true));
+                        sl.SetCellStyle(i + 16, j, GR.FormattingExcelCells(sl, true));
                     }
                 }
 
-                sl.SetCellValue(dataTable.Rows.Count + 12, 2, "=C6");
-                sl.SetCellStyle(dataTable.Rows.Count + 12, 2, GR.FormattingExcelCells(sl, false));
+                sl.SetCellValue(dataTable.Rows.Count + 19, 2, "=F12");
+                sl.SetCellStyle(dataTable.Rows.Count + 19, 2, GR.FormattingExcelCells(sl, false));
 
-                sl.SetCellValue(dataTable.Rows.Count + 14, 2, "Всего обработано вагонов - цистерн " + company_name + " по видам операций:");
-                sl.SetCellStyle(dataTable.Rows.Count + 14, 2, GR.FormattingExcelCells(sl, false));
+                sl.SetCellValue(dataTable.Rows.Count + 20, 2, "Всего обработано вагонов - цистерн " + company_name + " по видам операций:");
+                sl.SetCellStyle(dataTable.Rows.Count + 20, 2, GR.FormattingExcelCells(sl, false));
 
                 //Итоговая сводка
                 int rowcount = 0;
@@ -170,42 +167,30 @@ namespace Учет_цистерн.Forms.Отчеты
                     {
                         if (j == 0)
                         {
-                            sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 2, Itog_Rep.Rows[i][j].ToString());
-                            sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 2, GR.FormattingExcelCells(sl, false));
+                            sl.SetCellValue(i + dataTable.Rows.Count + 21 + rowcount, j + 2, Itog_Rep.Rows[i][j].ToString());
+                            sl.SetCellStyle(i + dataTable.Rows.Count + 21 + rowcount, j + 2, GR.FormattingExcelCells(sl, false));
                         }
                         else
                         {
                             val1 = val1 * double.Parse(Itog_Rep.Rows[i][j].ToString());
-                            sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 12, Convert.ToDecimal(Itog_Rep.Rows[i][j].ToString()));
-                            sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 12, GR.FormattingExcelCells(sl, false));
+                            sl.SetCellValue(i + dataTable.Rows.Count + 21 + rowcount, j + 12, Convert.ToDecimal(Itog_Rep.Rows[i][j].ToString()));
+                            sl.SetCellStyle(i + dataTable.Rows.Count + 21 + rowcount, j + 12, GR.FormattingExcelCells(sl, false));
                         }
                     }
                     EndSum += val1;
-                    if (i < Itog_Rep.Rows.Count && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт горячей обработкой" && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт")
-                    {
-                        total += int.Parse(Itog_Rep.Rows[i][1].ToString());
-                    }
-                    else
-                    {
-                        continue;
-                    }
                 }
 
-                sl.SetCellValue(dataTable.Rows.Count + 14, 13, total);
-                sl.SetCellStyle(dataTable.Rows.Count + 14, 13, GR.FormattingExcelCells(sl, false));
-
-
-                sl.SetCellValue(dataTable.Rows.Count + 14, 13, dataTable.Rows.Count);
+                sl.SetCellValue(dataTable.Rows.Count + 20, 12, dataTable.Rows.Count);
+                sl.SetCellStyle(dataTable.Rows.Count + 20, 12, GR.FormattingExcelCells(sl, false));
 
                 //Итоговая сумма
-                sl.SetCellValue(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, EndSum);
-                sl.SetCellStyle(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, GR.FormattingExcelCells(sl, false));
+                sl.SetCellValue(val, 4, EndSum);
+                sl.SetCellStyle(val, 4, GR.FormattingExcelCells(sl, false));
 
                 sl.SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"Report\" + company_name + " Реестр  за арендованных и  собственных вагон-цистерн компании.xlsx");
             }
 
             dataTable.Clear();
-            Itog_Rep.Clear();
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"Report\" + company_name + " Реестр  за арендованных и  собственных вагон-цистерн компании.xlsx");
         }
     }

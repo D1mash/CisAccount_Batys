@@ -415,6 +415,7 @@
     <Compile Include="Forms\Станции\UpdtCurrentStation_StationForm.Designer.cs">
       <DependentUpon>UpdtCurrentStation_StationForm.cs</DependentUpon>
     </Compile>
+    <None Include="Forms\ReportTemplates\Реестр  за арендованных и  собственных вагон-цистерн компании.xlsx" />
     <None Include="Resources\journal-add.jpg" />
     <EmbeddedResource Include="Forms\АУТН\AutnForm.resx">
       <DependentUpon>AutnForm.cs</DependentUpon>
@@ -573,7 +574,6 @@
       <DependentUpon>UpdtCurrentStation_StationForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Forms\ReportTemplates\Итог по станции.xlsx" />
-    <None Include="Forms\ReportTemplates\Реестр  за арендованных и  собственных вагон-цистерн компании.xlsx" />
     <None Include="Forms\ReportTemplates\Реестр АУТН.xlsx" />
     <None Include="Forms\ReportTemplates\СНО Приход.xlsx" />
     <None Include="Forms\ReportTemplates\СНО Реализ.xlsx" />

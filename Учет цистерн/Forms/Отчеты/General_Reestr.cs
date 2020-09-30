@@ -22,8 +22,8 @@ namespace Учет_цистерн.Forms.Отчеты
             using (SLDocument sl = new SLDocument(path))
             {
 
-                sl.SelectWorksheet("ТОО Казыкурт");
-                sl.RenameWorksheet("ТОО Казыкурт", "Реестр");
+                sl.SelectWorksheet("Batys");
+                sl.RenameWorksheet("Batys", "Реестр");
                 sl.AddWorksheet("Temp");
 
                 string RefreshAllCount = "exec dbo.GetReportAllRenderedService_v1 '" + v1 + "','" + v2 + "'," + "@Type = " + 2;
@@ -53,79 +53,33 @@ namespace Учет_цистерн.Forms.Отчеты
                         string RefreshAll = "exec dbo.GetReportAllRenderedService_v1 '" + v1 + "','" + v2 + "'," + "@Type = " + 1;
                         dataTable = DbConnection.DBConnect(RefreshAll);
 
-                        string GetCountServiceCost = "exec dbo.Itog_All_Report '" + v1 + "','" + v2 + "'";
-                        Itog_Rep = DbConnection.DBConnect(GetCountServiceCost);
-
                         sl.SelectWorksheet(name);
+                        sl.SetCellValue("F12", "в ТОО \"Batys Petroleum\" " + v1 + " по " + v2);
 
-                        sl.SetCellValue("C6", "в ТОО Казыгурт-Юг c " + v1 + " по " + v2);
+                        var val = dataTable.Rows.Count + 18;
+                        sl.CopyCell("B18", "G24", "B" + val, true);
 
-                        var val = dataTable.Rows.Count + 16 + Itog_Rep.Rows.Count * 2;
-                        sl.CopyCell("B13", "K20", "B" + val, true);
+                        sl.ImportDataTable(16, 1, dataTable, false);
+                        sl.CopyCell("W16", "W" + Convert.ToString(dataTable.Rows.Count + 16), "X16", true);
 
-                        sl.ImportDataTable(10, 1, dataTable, false);
-                        sl.CopyCell("E10", "R" + Convert.ToString(dataTable.Rows.Count + 10), "G10", true);
+                        double EndSum = 0;
 
                         for (int i = 0; i < dataTable.Rows.Count; i++)
                         {
-                            for (int j = 1; j < dataTable.Columns.Count + 3; j++)
+                            for (int j = 1; j <= dataTable.Columns.Count+1; j++)
                             {
-                                sl.SetCellStyle(i + 10, j, FormattingExcelCells(sl, true));
+                                sl.SetCellStyle(i + 16, j, FormattingExcelCells(sl, true));
+                                if (j >= 21 && j<23)
+                                    EndSum += Convert.ToDouble(dataTable.Rows[i][j].ToString());
                             }
                         }
-
-                        sl.SetCellValue(dataTable.Rows.Count + 12, 2, "=C6");
-                        sl.SetCellStyle(dataTable.Rows.Count + 12, 2, FormattingExcelCells(sl, false));
-
-                        sl.SetCellValue(dataTable.Rows.Count + 14, 2, "Всего обработано вагонов - цистерн всех собственников по видам операций:");
-                        sl.SetCellStyle(dataTable.Rows.Count + 14, 2, FormattingExcelCells(sl, false));
-
-                        //Итоговая сводка
-                        int rowcount = 0;
-                        int total = 0;
-                        double EndSum = 0;
-
-                        for (int i = 0; i < Itog_Rep.Rows.Count; i++)
-                        {
-                            rowcount++;
-                            double val1 = 1;
-                            for (int j = 0; j < Itog_Rep.Columns.Count; j++)
-                            {
-                                if (j == 0)
-                                {
-                                    sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 2, Itog_Rep.Rows[i][j].ToString());
-                                    sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 2, FormattingExcelCells(sl, false));
-                                }
-                                else
-                                {
-                                    val1 = val1 * double.Parse(Itog_Rep.Rows[i][j].ToString());
-                                    sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 12, Convert.ToDecimal(Itog_Rep.Rows[i][j].ToString()));
-                                    sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 12, FormattingExcelCells(sl, false));
-                                }
-                            }
-
-                            EndSum += val1;
-                            if (i < Itog_Rep.Rows.Count && (Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт горячей обработкой" && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт" && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт"))
-                            {
-                                total += int.Parse(Itog_Rep.Rows[i][1].ToString());
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-
-                        sl.SetCellValue(dataTable.Rows.Count + 14, 13, total);
-                        sl.SetCellStyle(dataTable.Rows.Count + 14, 13, FormattingExcelCells(sl, false));
-
-
+                        
                         //Итоговая сумма
-                        sl.SetCellValue(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, EndSum);
-                        sl.SetCellStyle(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, FormattingExcelCells(sl, false));
+                        sl.SetCellValue(val, 4, EndSum);
+                        sl.SetCellStyle(val, 4, FormattingExcelCells(sl, false));
 
-                        GetCountServiceCost = string.Empty;
                         dataTable.Clear();
-                        Itog_Rep.Clear();
+                        EndSum = 0;
                     }
                     else
                     {
@@ -139,80 +93,31 @@ namespace Учет_цистерн.Forms.Отчеты
                         Name = dt.Rows[k][1].ToString();
                         sl.SelectWorksheet(Name);
 
-                        sl.SetCellValue("C4", dt.Rows[k][1].ToString());
+                        sl.SetCellValue("F10", dt.Rows[k][1].ToString());
 
-                        sl.SetCellValue("C6", "в ТОО Казыгурт-Юг c " + v1 + " по " + v2);
+                        sl.SetCellValue("F12", "в ТОО \"Batys Petroleum\"" + v1 + " по " + v2);
 
-                        var val = dataTable.Rows.Count + 16 + Itog_Rep.Rows.Count * 2;
-                        sl.CopyCell("B13", "K20", "B" + val, true);
+                        var val = dataTable.Rows.Count + 18;
+                        sl.CopyCell("B18", "G24", "B" + val, true);
 
-                        sl.ImportDataTable(10, 1, dataTable, false);
-                        sl.CopyCell("E10", "R" + Convert.ToString(dataTable.Rows.Count + 10), "G10", true);
-
-                        for (int i = 0; i < dataTable.Rows.Count; i++)
-                        {
-                            for (int j = 1; j < dataTable.Columns.Count + 3; j++)
-                            {
-                                sl.SetCellStyle(i + 10, j, FormattingExcelCells(sl, true));
-                            }
-                        }
-
-                        sl.SetCellValue(dataTable.Rows.Count + 12, 2, "=C6");
-                        sl.SetCellStyle(dataTable.Rows.Count + 12, 2, FormattingExcelCells(sl, false));
-
-                        sl.SetCellValue(dataTable.Rows.Count + 14, 2, "Всего обработано вагонов - цистерн всех собственников по видам операций:");
-                        sl.SetCellStyle(dataTable.Rows.Count + 14, 2, FormattingExcelCells(sl, false));
-
-                        //Итоговая сводка
-                        int rowcount = 0;
-                        int total = 0;
-
+                        sl.ImportDataTable(16, 1, dataTable, false);
+                        sl.CopyCell("W16", "W" + Convert.ToString(dataTable.Rows.Count + 16), "X16", true);
 
                         double EndSum = 0;
 
-
-                        for (int i = 0; i < Itog_Rep.Rows.Count; i++)
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
                         {
-                            rowcount++;
-                            double val1 = 1;
-                            for (int j = 0; j < Itog_Rep.Columns.Count; j++)
+                            for (int j = 1; j <= dataTable.Columns.Count + 1; j++)
                             {
-                                if (j == 0)
-                                {
-                                    sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 2, Itog_Rep.Rows[i][j].ToString());
-                                    sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 2, FormattingExcelCells(sl, false));
-                                }
-                                else
-                                {
-                                    val1 = val1 * double.Parse(Itog_Rep.Rows[i][j].ToString());
-                                    sl.SetCellValue(i + dataTable.Rows.Count + 15 + rowcount, j + 12, Convert.ToDecimal(Itog_Rep.Rows[i][j].ToString()));
-                                    sl.SetCellStyle(i + dataTable.Rows.Count + 15 + rowcount, j + 12, FormattingExcelCells(sl, false));
-
-                                }
-                            }
-
-                            EndSum += val1;
-                            if (i < Itog_Rep.Rows.Count && (Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт горячей обработкой" && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт" && Itog_Rep.Rows[i][0].ToString() != "Текущий отцепочный ремонт"))
-                            {
-                                total += int.Parse(Itog_Rep.Rows[i][1].ToString());
-                            }
-                            else
-                            {
-                                continue;
+                                sl.SetCellStyle(i + 16, j, FormattingExcelCells(sl, true));
+                                if (j >= 21 && j < 23)
+                                    EndSum += Convert.ToDouble(dataTable.Rows[i][j].ToString());
                             }
                         }
 
-                        sl.SetCellValue(dataTable.Rows.Count + 14, 13, total);
-                        sl.SetCellStyle(dataTable.Rows.Count + 14, 13, FormattingExcelCells(sl, false));
-
-
                         //Итоговая сумма
-                        sl.SetCellValue(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, EndSum);
-                        sl.SetCellStyle(dataTable.Rows.Count + Itog_Rep.Rows.Count * 2 + 16, 14, FormattingExcelCells(sl, false));
-
-                        GetCountServiceCost = string.Empty;
-                        dataTable.Clear();
-                        Itog_Rep.Clear();
+                        sl.SetCellValue(val, 4, EndSum); 
+                        sl.SetCellStyle(val, 4, FormattingExcelCells(sl, false));
 
                         k++;
                     }
@@ -228,13 +133,13 @@ namespace Учет_цистерн.Forms.Отчеты
         {
             SLStyle style1 = sl.CreateStyle();
 
-            if (val == true)
+            if (val == true) 
             {
                 style1.SetBottomBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
                 style1.SetTopBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
                 style1.SetLeftBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
                 style1.SetRightBorder(BorderStyleValues.Thin, System.Drawing.Color.Black);
-                style1.Font.FontName = "Arial Cyr";
+                style1.Font.FontName = "Arial";
                 style1.Font.FontSize = 9;
                 style1.Font.Bold = true;
                 style1.Alignment.Horizontal = HorizontalAlignmentValues.Center;
