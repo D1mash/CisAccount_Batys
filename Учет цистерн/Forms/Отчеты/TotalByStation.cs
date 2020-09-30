@@ -99,8 +99,8 @@ namespace Учет_цистерн.Forms.Отчеты
                 sl.SetCellValue("I8", total);
 
                 //Итоговая сумма
-                sl.SetCellValue(dt.Rows.Count + 11 + item, 4, final_sum);
-                sl.SetCellStyle(dt.Rows.Count + 11 + item, 4, GR.FormattingExcelCells(sl, false));
+                sl.SetCellValue(dt.Rows.Count + 11 + item, 10, final_sum);
+                sl.SetCellStyle(dt.Rows.Count + 11 + item, 10, GR.FormattingExcelCells(sl, false));
 
                 sl.SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"Report\Итог по станции.xlsx");
             }
