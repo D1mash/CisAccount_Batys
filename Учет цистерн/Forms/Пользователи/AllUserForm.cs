@@ -8,9 +8,9 @@ namespace Учет_цистерн.Forms.Пользователи
 {
     public partial class AllUserForm : Form
     {
-        string role;
-        int SelectItemRow;
-        int SelectRoleId;
+        string role = string.Empty;
+        int SelectItemRow = 0;
+        int SelectRoleId = 0;
 
         public AllUserForm(string role)
         {
@@ -23,18 +23,14 @@ namespace Учет_цистерн.Forms.Пользователи
             string Refreshh = "exec dbo.GetUser";
             DataTable dt = DbConnection.DBConnect(Refreshh);
             gridControl1.DataSource = dt;
+            gridView1.Columns[0].Visible = false;
             gridView1.Columns[1].Visible = false;
+
+            GridColumnSummaryItem Count = new GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "Имя", "{0}");
+            gridView1.Columns["Имя"].Summary.Add(Count);
         }
 
         public void AllUserForm_Load(object sender, EventArgs e)
-        {
-            Refreshh();
-
-            GridColumnSummaryItem Count = new GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "AID", "{0}");
-            gridView1.Columns["AID"].Summary.Add(Count);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
         {
             Refreshh();
         }
@@ -52,6 +48,7 @@ namespace Учет_цистерн.Forms.Пользователи
                     }
                 }
                 AddUserForm snoComAddForm = new AddUserForm();
+                snoComAddForm.Owner = this;
                 snoComAddForm.ShowDialog();
             }
             catch (Exception exp)
@@ -64,26 +61,30 @@ namespace Учет_цистерн.Forms.Пользователи
         {
             try
             {
-                foreach (Form form in Application.OpenForms)
+                if(SelectItemRow != 0)
                 {
-                    if (form.GetType() == typeof(UpdateUserForm))
+                    foreach (Form form in Application.OpenForms)
                     {
-                        form.Activate();
-                        return;
+                        if (form.GetType() == typeof(UpdateUserForm))
+                        {
+                            form.Activate();
+                            return;
+                        }
                     }
+                    UpdateUserForm update = new UpdateUserForm(role);
+                    update.SelectID = SelectItemRow;
+                    update.SelectRoleId = SelectRoleId;
+                    update.Owner = this;
+                    update.ShowDialog();
                 }
-                UpdateUserForm update = new UpdateUserForm(role);
-                update.SelectID = SelectItemRow;
-                update.SelectRoleId = SelectRoleId;
-                update.textBox2.Text = gridView1.GetFocusedDataRow()[2].ToString();
-                update.textBox3.Text = gridView1.GetFocusedDataRow()[3].ToString();
-                update.textBox4.Text = gridView1.GetFocusedDataRow()[4].ToString();
-                update.comboBox1.Text = gridView1.GetFocusedDataRow()[5].ToString();
-                update.ShowDialog();
+                else
+                {
+                    MessageBox.Show("Для редактирования записи, необходимо указать строку! ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Для редактирования записи, необходимо указать строку! " + ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -95,12 +96,19 @@ namespace Учет_цистерн.Forms.Пользователи
                 {
                     try
                     {
-                        if (MessageBox.Show("Вы действительно хотите удалить эту запись?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (SelectItemRow != 0)
                         {
-                            string Delete = "update Users set IsDeleted = 1 where AID = " + SelectItemRow;
-                            DbConnection.DBConnect(Delete);
-                            MessageBox.Show("Пользователь удалён!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Refreshh();
+                            if (MessageBox.Show("Вы действительно хотите удалить эту запись?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                string Delete = "update Users set IsDeleted = 1 where AID = " + SelectItemRow;
+                                DbConnection.DBConnect(Delete);
+                                MessageBox.Show("Пользователь удалён!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Refreshh();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Для удаления записи, необходимо указать строку! ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     catch (Exception exp)

@@ -7,7 +7,9 @@ namespace Учет_цистерн.Forms.Пользователи
     public partial class UpdateUserForm : Form
     {
         int selectID;
-        string role;
+        string role = string.Empty;
+        string Fristname = string.Empty;
+        string Surname = string.Empty;
 
         public int SelectID
         {
@@ -25,41 +27,43 @@ namespace Учет_цистерн.Forms.Пользователи
 
         private void Fillcombobox()
         {
-            string Role = "select * from d__Role";
-            DataTable dt = DbConnection.DBConnect(Role);
-            comboBox1.DataSource = dt;
-            comboBox1.DisplayMember = "Name";
-            comboBox1.ValueMember = "ID";
-            comboBox1.DataBindings.Add("SelectedValue", this, "SelectRoleId", true, DataSourceUpdateMode.OnPropertyChanged);
+            try
+            {
+                string Role = "select * from d__Role";
+                DataTable dt = DbConnection.DBConnect(Role);
+                comboBox1.DataSource = dt;
+                comboBox1.DisplayMember = "Name";
+                comboBox1.ValueMember = "ID";
+                comboBox1.DataBindings.Add("SelectedValue", this, "SelectRoleId", true, DataSourceUpdateMode.OnPropertyChanged);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void UpdateUserForm_Load(object sender, EventArgs e)
         {
             Fillcombobox();
-            textBox2.Enabled = false;
-            textBox3.Enabled = false;
-            textBox4.Enabled = false;
-            comboBox1.Enabled = false;
+            SelectUser();
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void SelectUser()
         {
-            textBox2.Enabled = (checkBox1.CheckState == CheckState.Checked);
-        }
+            try
+            {
+                string Role = "SELECT * FROM [Users] where AID =" + selectID;
+                DataTable dt = DbConnection.DBConnect(Role);
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            textBox3.Enabled = (checkBox2.CheckState == CheckState.Checked);
-        }
-
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            textBox4.Enabled = (checkBox3.CheckState == CheckState.Checked);
-        }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            comboBox1.Enabled = (checkBox5.CheckState == CheckState.Checked);
+                textBox2.Text = dt.Rows[0][1].ToString();
+                textBox3.Text = dt.Rows[0][2].ToString();
+                textBox4.Text = dt.Rows[0][3].ToString();
+                textBox1.Text = dt.Rows[0][4].ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,7 +78,17 @@ namespace Учет_цистерн.Forms.Пользователи
                 {
                     string Update = "exec dbo.UpdateUser '" + textBox2.Text.Trim() + "','" + textBox3.Text.Trim() + "','" + textBox4.Text.Trim() + "','" + textBox1.Text.Trim() + "'," + comboBox1.SelectedValue.ToString() + "," + selectID;
                     DbConnection.DBConnect(Update);
+
                     MessageBox.Show("Пользователь изменён!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    AllUserForm allUserForm = this.Owner as AllUserForm;
+                    allUserForm.Refresh();
+
+                    selectID = 0;
+                    role = string.Empty;
+                    Fristname = string.Empty;
+                    Surname = string.Empty;
+
                     this.Close();
                 }
             }
@@ -87,6 +101,23 @@ namespace Учет_цистерн.Forms.Пользователи
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            Fristname = textBox2.Text;
+            textBox4_Enter(null, null);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            Surname = textBox3.Text;
+            textBox4_Enter(null, null);
+        }
+
+        private void textBox4_Enter(object sender, EventArgs e)
+        {
+            textBox4.Text = Surname + " " + Fristname;
         }
     }
 }
